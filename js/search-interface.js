@@ -1,8 +1,7 @@
 var githubRequests = require('./../js/githubapi.js').githubModule;
-var listeners = require('./../js/listeners.js').listenersModule;
+var userClickListener = require('./../js/listeners.js').userClickListener;
 
 var displayUsers = function(name){
-  var listener= new listeners();
   var userString = "<li class='user'><h4>" + name + "</h4></li>";
   $("#user-results ul").append(userString);
   $("#user-results ul li").last().click(userClickListener);
