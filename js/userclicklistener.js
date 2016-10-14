@@ -13,11 +13,10 @@ var displayRepo = function(name, url, description, language, homepage){
   $("#results").append(repoString);
 };
 
-$(document).ready(function(){
+exports.userClickListener = function(){
+  $("#results .repo").remove();
   var githubObject = new githubRequests();
-  $("#user-results ul li").click(function(){
-    var username = $(this).text();
-    displayUser(username);
-    githubObject.getRepos(username, displayRepo);
-  });
-});
+  var username = $(this).text();
+  displayUser(username);
+  githubObject.getRepos(username, displayRepo);
+};
