@@ -16,6 +16,12 @@ $(document).ready(function(){
     $("#user-results").show();
     $("#results .repo").remove();
     $("#results h2").empty();
+    $("#nextPageDiv").empty();
+    if(!$("#results").hasClass("no-results-wrapper")){
+      $("#inner-results").addClass("no-results");
+      $("#results").addClass("no-results-wrapper");
+      $(".no-results h1").show();
+    }
     var searchString = $("#username").val();
     var searchType = $("input[name=type]:checked").val();
     var searchlocation = $("#location").val();

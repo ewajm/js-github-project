@@ -32,7 +32,7 @@ var createButton = function (pages, user) {
 exports.userClickListener = function(){
   $("#results .repo").remove();
   $("#nextPage").remove();
-  $(".no-results h1").remove();
+  $(".no-results h1").hide();
   $("div").removeClass("no-results");
   $("div").removeClass("no-results-wrapper");
   var githubObject = new githubRequests();
