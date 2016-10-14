@@ -11,18 +11,26 @@
   <body>
     <div class="container">
       <h1>Github Display Thing</h1>
-      <form id="search-form">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" class="form-control" name="username" required>
-        </div>
-        <button type="submit" class="btn btn-info">Find User</button>
-      </form>
-      <div id="results">
-        <h2></h2>
-        <ul>
+      <div class="row">
+        <div class="col-sm-5">
+          <form id="search-form">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" class="form-control" name="username" required>
+            </div>
+            <button type="submit" class="btn btn-info">Find User</button>
+          </form>
+          <div id="user-results">
+            <h3>Your search matched the following users: </h3>
+            <h4>Click on a user to display their repos</h4>
+            <ul>
 
-        </ul>
+            </ul>
+          </div>
+        </div>
+        <div id="results" class="col-sm-7">
+          <h2></h2>
+        </div>
       </div>
     </div>
   </body>
