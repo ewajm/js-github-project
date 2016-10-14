@@ -8,9 +8,21 @@ GithubRequests = function(){
 
 };
 
-GithubRequests.prototype.findUsers = function (searchName, displayUserFunction) {
-  $.get('https://api.github.com/search/users?q=' + searchName + '&per_page=20&access_token=' + apiKey).then(function(response){
+GithubRequests.prototype.findUsers = function (searchName, displayUserFunction, filters) {
+  var getString = 'https://api.github.com/search/users?q=' + searchName;
+  for(var key in filters){
+    if(filters[key]){
+      if(key === "followers"){
+        getString += "+" + key + ":%3E" + filters[key];
+      } else {
+        getString += "+" + key + ":" + filters[key];
+      }
+    }
+  }
+  console.log(getString);
+  $.get(getString + '&per_page=20&access_token=' + apiKey).then(function(response){
     for(var i=0; i < response.items.length; i++){
+      //TODO: deal with no users
       var username = response.items[i].login;
       displayUserFunction(username);
     }
@@ -24,7 +36,7 @@ GithubRequests.prototype.getRepos = function(user, displayRepoFunction, createBu
   }
   apiLink += "&callback=?";
   $.getJSON(apiLink, function(response){
-    console.log(response);
+    //TODO: deal with no repos
     for(var i = 0; i < response.data.length; i++){
       var name = response.data[i].name;
       var url = response.data[i].html_url;

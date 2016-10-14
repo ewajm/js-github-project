@@ -16,7 +16,11 @@ $(document).ready(function(){
     $("#user-results").show();
     $("#results .repo").remove();
     $("#results h2").empty();
-    var userSearch = $("#username").val();
-    githubObject.findUsers(userSearch, displayUsers);
+    var searchString = $("#username").val();
+    var searchType = $("input[name=type]:checked").val();
+    var searchlocation = $("#location").val();
+    var searchfollowers = $("#followers").val();
+    var filters = {type: searchType, location: searchlocation, followers: searchfollowers};
+    githubObject.findUsers(searchString, displayUsers, filters);
   });
 });
