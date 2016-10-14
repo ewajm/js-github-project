@@ -18,17 +18,27 @@ githubRequests.prototype.findUsers = function (searchName, displayUserFunction) 
   });
 };
 
-githubRequests.prototype.getRepos = function(user, displayRepoFunction){
-  $.get('https://api.github.com/users/' + user + '/repos?sort=created&per_page=10&access_token=' + apiKey).then(function(response){
+githubRequests.prototype.getRepos = function(user, displayRepoFunction, createButton, nextPage){
+  var apiLink = 'https://api.github.com/users/' + user + '/repos?sort=created&per_page=10&access_token=' + apiKey;
+  if(nextPage){
+    apiLink += nextPage;
+  }
+  apiLink += "&callback=?";
+  console.log(apiLink);
+  $.getJSON(apiLink, function(response){
     console.log(response);
-    for(var i = 0; i < response.length; i++){
-      var name = response[i].name;
-      var url = response[i].html_url;
-      var description = response[i].description ? response[i].description : "No description provided";
-      var language = response[i].language;
-      var homepage = response[i].homepage;
-      displayRepoFunction(name, url, description, language, homepage);
+    for(var i = 0; i < response.data.length; i++){
+      var name = response.data[i].name;
+      var url = response.data[i].html_url;
+      var description = response.data[i].description ? response.data[i].description : "No description provided";
+      var language = response.data[i].language ? response.data[i].language : "Not specified";
+      var homepage = response.data[i].homepage;
+      var created = moment(response.data[i].created_at);
+      var lastpush = moment(response.data[i].pushed_at);
+      displayRepoFunction(name, url, description, language, homepage, created, lastpush);
     }
+    var nextPage = response.meta.Link[0][0].slice(response.meta.Link[0][0].search("&page"));
+    createButton(nextPage, user);
   }).fail(function(error){
     console.log(error.responseJSON.message);
   });
