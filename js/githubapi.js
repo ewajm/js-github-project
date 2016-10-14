@@ -39,26 +39,28 @@ GithubRequests.prototype.getRepos = function(user, displayRepoFunction, createBu
   }
   apiLink += "&callback=?";
   $.getJSON(apiLink, function(response){
-    //TODO: deal with no repos
-    for(var i = 0; i < response.data.length; i++){
-      var name = response.data[i].name;
-      var url = response.data[i].html_url;
-      var description = response.data[i].description ? response.data[i].description : "No description provided";
-      var language = response.data[i].language ? response.data[i].language : "Not specified";
-      var homepage = response.data[i].homepage;
-      var created = moment(response.data[i].created_at);
-      var lastpush = moment(response.data[i].pushed_at);
-      displayRepoFunction(name, url, description, language, homepage, created, lastpush);
-    }
-    var links = response.meta.Link;
-    var pages = {};
-    for(var j = 0; j < links.length; j++){
-      if(links[j][1].rel === "prev" || links[j][1].rel === "next"){
-        pages[links[j][1].rel] = response.meta.Link[j][0].slice(response.meta.Link[j][0].search("&page"));
+    if(response.data.length > 0){
+      for(var i = 0; i < response.data.length; i++){
+        var name = response.data[i].name;
+        var url = response.data[i].html_url;
+        var description = response.data[i].description ? response.data[i].description : "No description provided";
+        var language = response.data[i].language ? response.data[i].language : "Not specified";
+        var homepage = response.data[i].homepage;
+        var created = moment(response.data[i].created_at);
+        var lastpush = moment(response.data[i].pushed_at);
+        displayRepoFunction(name, url, description, language, homepage, created, lastpush);
       }
+      var links = response.meta.Link;
+      var pages = {};
+      for(var j = 0; j < links.length; j++){
+        if(links[j][1].rel === "prev" || links[j][1].rel === "next"){
+          pages[links[j][1].rel] = response.meta.Link[j][0].slice(response.meta.Link[j][0].search("&page"));
+        }
+      }
+      createButton(pages, user);
+    } else {
+      displayRepoFunction("");
     }
-    console.log(pages);
-    createButton(pages, user);
   }).fail(function(error){
     console.log(error.responseJSON.message);
   });
