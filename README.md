@@ -11,7 +11,7 @@ _An app that uses the github api to display a given user's repositories as well 
 * _Copy the repository from GitHub_
 * _Run npm install_
 * _run bower install_
-* _if you have your own github api key, create a .env file and add the line 'exports.apiKey = "YOUR_KEY";', otherwise, you will be limited to 60 api calls
+* _if you have your own github api key, create a .env file and add the line 'exports.apiKey = "YOUR\_KEY";'_
 * _run gulp serve to build the project for the first time and start the development server_
 
 ## GitHub link
