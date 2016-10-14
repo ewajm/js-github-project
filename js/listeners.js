@@ -10,15 +10,15 @@ var displayRepo = function(name, url, description, language, homepage, created, 
     repoString += "<p><a href='" + homepage + "'>Project Homepage</a></p>";
   }
   repoString += "</div>";
-  $("#results").append(repoString);
+  $("#inner-results").append(repoString);
 };
 
 var createButton = function (pages, user) {
   if(pages.next){
-    $("#nextPageDiv").append("<button id='nextPage' class='btn btn-info btn-xs page' value='" + pages.next + "'>More results</button>");
+    $("#nextPageDiv").append("<button id='nextPage' class='btn btn-default btn-sm page' value='" + pages.next + "'>More results</button>");
   }
   if(pages.prev){
-    $("#nextPageDiv").append("<button id='prevPage' class='btn btn-info btn-xs page' value='" + pages.prev + "'>Previous results</button>");
+    $("#nextPageDiv").append("<button id='prevPage' class='btn btn-default btn-sm page' value='" + pages.prev + "'>Previous results</button>");
   }
   $(".page").click(function(){
     $("#results .repo").remove();
@@ -32,6 +32,9 @@ var createButton = function (pages, user) {
 exports.userClickListener = function(){
   $("#results .repo").remove();
   $("#nextPage").remove();
+  $(".no-results h1").remove();
+  $("div").removeClass("no-results");
+  $("div").removeClass("no-results-wrapper");
   var githubObject = new githubRequests();
   var username = $(this).text();
   displayUser(username);

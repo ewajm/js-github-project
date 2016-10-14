@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Flat" rel="stylesheet">
     <link rel="stylesheet" href="build/css/vendor.css">
     <link rel="stylesheet" href="build/css/styles.css">
     <script src="build/js/vendor.min.js"></script>
@@ -10,7 +11,9 @@
   </head>
   <body>
     <div class="container">
-      <h1>Github Display Thing</h1>
+      <div class="jumbotron">
+        <h1>Github Display Thing</h1>
+      </div>
       <div class="row">
         <div class="col-sm-4">
           <form id="search-form">
@@ -21,25 +24,27 @@
             <button type="submit" class="btn btn-primary">Find User</button>
           </form>
           <div id="user-results">
-            <h3>Your search matched the following users: </h3>
+            <h4>Your search matched the following users: </h4>
             <h4>Click on a user to display their repos</h4>
             <ul>
-
             </ul>
           </div>
         </div>
         <!-- end form column -->
-        <div id="results" class="col-sm-8">
+        <div id="results" class="col-sm-8 no-results-wrapper">
+          <div id="inner-results" class="no-results">
           <!--results header row-->
-          <div class="row">
-            <div class="col-sm-8">
-              <h2></h2>
+            <div id = "heading" class="row">
+              <div class="col-md-7">
+                <h2></h2>
+              </div>
+              <div id="nextPageDiv" class="col-md-5">
+              </div>
             </div>
-            <div id="nextPageDiv" class="col-sm-4">
-
-            </div>
+            <!--end results header row-->
+            <h1> Use the form to begin! </h1>
           </div>
-          <!--end results header row-->
+          <!--end results wrapper-->
         </div>
         <!-- end results column -->
       </div>
