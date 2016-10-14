@@ -21,10 +21,13 @@ GithubRequests.prototype.findUsers = function (searchName, displayUserFunction, 
   }
   console.log(getString);
   $.get(getString + '&per_page=20&access_token=' + apiKey).then(function(response){
-    for(var i=0; i < response.items.length; i++){
-      //TODO: deal with no users
-      var username = response.items[i].login;
-      displayUserFunction(username);
+    if(response.items.length > 0){
+      for(var i=0; i < response.items.length; i++){
+        var username = response.items[i].login;
+        displayUserFunction(username);
+      }
+    } else {
+      displayUserFunction("");
     }
   });
 };

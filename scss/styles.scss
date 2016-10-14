@@ -29,6 +29,7 @@ h3 {
 div.container {
   background-color: $dimGray;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   border-radius: 5px;
 }
 
@@ -51,7 +52,7 @@ div.jumbotron {
   ul {
     list-style-type: none;
   }
-  li:hover {
+  .user:hover {
     text-decoration: underline;
     color: $dimGray;
   }
