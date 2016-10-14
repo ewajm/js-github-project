@@ -18,7 +18,7 @@
               <label for="username">Username</label>
               <input type="text" id="username" class="form-control" name="username" required>
             </div>
-            <button type="submit" class="btn btn-info">Find User</button>
+            <button type="submit" class="btn btn-primary">Find User</button>
           </form>
           <div id="user-results">
             <h3>Your search matched the following users: </h3>
@@ -28,10 +28,23 @@
             </ul>
           </div>
         </div>
+        <!-- end form column -->
         <div id="results" class="col-sm-8">
-          <h2></h2>
+          <!--results header row-->
+          <div class="row">
+            <div class="col-sm-8">
+              <h2></h2>
+            </div>
+            <div id="nextPageDiv" class="col-sm-4">
+
+            </div>
+          </div>
+          <!--end results header row-->
         </div>
+        <!-- end results column -->
       </div>
+      <!-- end main row -->
     </div>
+    <!-- end container -->
   </body>
 </html>

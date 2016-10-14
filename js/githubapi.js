@@ -2,14 +2,13 @@ var apiKey = require('./../.env').apiKey;
 
 //TODO: user search parameters (location, popularity, etc)
 //TODO: repo sort
-//TODO: figure out pagination
 //TODO: wat if no key ?!?!
 
-githubRequests = function(){
+GithubRequests = function(){
 
 };
 
-githubRequests.prototype.findUsers = function (searchName, displayUserFunction) {
+GithubRequests.prototype.findUsers = function (searchName, displayUserFunction) {
   $.get('https://api.github.com/search/users?q=' + searchName + '&per_page=20&access_token=' + apiKey).then(function(response){
     for(var i=0; i < response.items.length; i++){
       var username = response.items[i].login;
@@ -18,13 +17,12 @@ githubRequests.prototype.findUsers = function (searchName, displayUserFunction) 
   });
 };
 
-githubRequests.prototype.getRepos = function(user, displayRepoFunction, createButton, nextPage){
+GithubRequests.prototype.getRepos = function(user, displayRepoFunction, createButton, nextPage){
   var apiLink = 'https://api.github.com/users/' + user + '/repos?sort=created&per_page=10&access_token=' + apiKey;
   if(nextPage){
     apiLink += nextPage;
   }
   apiLink += "&callback=?";
-  console.log(apiLink);
   $.getJSON(apiLink, function(response){
     console.log(response);
     for(var i = 0; i < response.data.length; i++){
@@ -37,11 +35,18 @@ githubRequests.prototype.getRepos = function(user, displayRepoFunction, createBu
       var lastpush = moment(response.data[i].pushed_at);
       displayRepoFunction(name, url, description, language, homepage, created, lastpush);
     }
-    var nextPage = response.meta.Link[0][0].slice(response.meta.Link[0][0].search("&page"));
-    createButton(nextPage, user);
+    var links = response.meta.Link;
+    var pages = {};
+    for(var j = 0; j < links.length; j++){
+      if(links[j][1].rel === "prev" || links[j][1].rel === "next"){
+        pages[links[j][1].rel] = response.meta.Link[j][0].slice(response.meta.Link[j][0].search("&page"));
+      }
+    }
+    console.log(pages);
+    createButton(pages, user);
   }).fail(function(error){
     console.log(error.responseJSON.message);
   });
 };
 
-exports.githubModule = githubRequests;
+exports.githubModule = GithubRequests;
